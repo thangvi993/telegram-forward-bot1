@@ -1,9 +1,16 @@
+import os
 from telegram import Update
 from telegram.ext import Application, MessageHandler, filters, ContextTypes
 
-TOKEN = "7648064871:AAHl3wzBSxdPD295yTsjfag2Wt1KWbAS5fk"
-SOURCE_CHAT_ID = -1002761454760  # Nhóm nguồn (Test1)
-TARGET_CHAT_ID = -1002859256164  # Nhóm đích (Test2)
+# Lấy token và chat_id từ biến môi trường
+TOKEN = os.getenv("TOKEN")
+
+SOURCE_CHAT_ID = os.getenv("SOURCE_CHAT_ID")
+TARGET_CHAT_ID = os.getenv("TARGET_CHAT_ID")
+
+# Chuyển chat_id từ chuỗi sang int nếu có giá trị
+SOURCE_CHAT_ID = int(SOURCE_CHAT_ID) if SOURCE_CHAT_ID else None
+TARGET_CHAT_ID = int(TARGET_CHAT_ID) if TARGET_CHAT_ID else None
 
 async def forward_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_chat.id == SOURCE_CHAT_ID:
